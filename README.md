@@ -16,6 +16,12 @@ or
 `glamr::si_setup()`
 
 
+3. DQA Timeline
+
+
+![DQA CHECKLIST - CheckPoints](https://user-images.githubusercontent.com/3952707/205374267-a15bee4b-a0ef-4d69-a588-b717b7f882fc.png)
+
 ---
+
 
 *Disclaimer: The findings, interpretation, and conclusions expressed herein are those of the authors and do not necessarily reflect the views of United States Agency for International Development. All errors remain our own.*
