@@ -200,6 +200,12 @@
          units = "in",
          dpi = 300)
 
+  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - Datim Calendar.svg"),
+         plot = viz_calendar3,
+         width = 6, height = 6,
+         units = "in",
+         dpi = 300)
+
   ## Datim Reporting DQA Timeline ----
 
   df_rep_calender1 <- pepfar_calender %>%
@@ -316,7 +322,7 @@
          scale = 1,
          dpi = 320)
 
-  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - CheckPoints.png"),
+  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - CheckPoints.svg"),
          plot = viz_check_points,
          width = 5, height = 7,
          units = "in",
@@ -357,11 +363,11 @@
     ggplot(aes(x=step, y = 1)) +
     geom_segment(aes(xend = to, yend = 1),
                  size = 2, linetype = "solid", color = trolley_grey_light) +
-    geom_point(shape = 21, size = 25, fill = scooter_light, color = trolley_grey_light, stroke = 2) +
+    geom_point(shape = 21, size = 20, fill = scooter_light, color = trolley_grey_light, stroke = 2) +
     geom_rect(aes(xmin = 1.5, xmax = 4.5, ymin = .5, ymax = 1.5),
               fill = NA, color = usaid_red, size = 1, linetype = "dashed") +
     geom_text(aes(label = step),
-              size = 40/.pt, fontface = "bold", color = grey10k) +
+              size = 60/.pt, fontface = "bold", color = "white") +
     geom_text(aes(x = 2.50, y = 1.3),
                   label = fontawesome("fa-check-square-o"),
                   family='fontawesome-webfont',
@@ -377,23 +383,25 @@
     geom_text(aes(x = 3, y = 1.5),
               label = "USAID's RESPONSABILY",
               family='Source Sans Pro SemiBold',
-              size = 40/.pt, vjust = -.5, color = usaid_red) +
+              size = 35/.pt, fontface = "bold",
+              vjust = -.5, color = usaid_red) +
     labs(x = "", y = "") +
     scale_y_continuous(limits = c(0 , 2)) +
     si_style_nolines() +
-    #theme_void()
     theme(axis.text.x = element_blank(),
-          axis.text.y = element_blank(),
-          #text = element_markdown()
-          )
-
-  #sub("^(\\S+) (\\S+) ", "\\1 \\2\n", "subm by abc")
-  #str_replace("subm by abc", "^(\\S+) (\\S+) ", "\\1 \\2\n")
-
+          axis.text.y = element_blank())
 
   viz_check_workflow
 
   ggsave(filename = file.path(dir_images, "DQA CHECKLIST - workflow.png"),
+         plot = viz_check_workflow,
+         width = 10,
+         height = 5,
+         units = "in",
+         scale = 1,
+         dpi = 320)
+
+  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - workflow.svg"),
          plot = viz_check_workflow,
          width = 10,
          height = 5,
