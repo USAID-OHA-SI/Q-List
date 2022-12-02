@@ -206,6 +206,13 @@
          units = "in",
          dpi = 300)
 
+  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - Datim Calendar.pdf"),
+         plot = viz_calendar3#,
+         #width = 6, height = 6,
+         #units = "in",
+         #dpi = 300
+         )
+
   ## Datim Reporting DQA Timeline ----
 
   df_rep_calender1 <- pepfar_calender %>%
@@ -329,6 +336,13 @@
          scale = 1,
          dpi = 320)
 
+  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - CheckPoints.pdf"),
+         plot = viz_check_points,
+         width = 5, height = 7,
+         units = "in",
+         scale = 1,
+         dpi = 320)
+
   ## Approval Flow ----
 
   appr_labels2 <- c(
@@ -402,6 +416,15 @@
          dpi = 320)
 
   ggsave(filename = file.path(dir_images, "DQA CHECKLIST - workflow.svg"),
+         plot = viz_check_workflow,
+         width = 10,
+         height = 5,
+         units = "in",
+         scale = 1,
+         dpi = 320)
+
+
+  ggsave(filename = file.path(dir_images, "DQA CHECKLIST - workflow.pdf"),
          plot = viz_check_workflow,
          width = 10,
          height = 5,
