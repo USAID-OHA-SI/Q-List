@@ -96,6 +96,18 @@
 
 # VIZ ----
 
+  ## ICONS ----
+
+  fa_icons("fa-calendar", fcolor = usaid_red, save_as = "./Graphics/fa-calendar.png")
+  fa_icons("fa-check-square-o", fcolor = usaid_red, save_as = "./Graphics/fa-check-square-o.png")
+  fa_icons("fa-database", fcolor = usaid_red, save_as = "./Graphics/fa-database.png")
+  fa_icons("fa-clock-o", fcolor = usaid_red, save_as = "./Graphics/fa-clock-0.png")
+  fa_icons("fa-book", fcolor = usaid_red, save_as = "./Graphics/fa-book.png")
+  fa_icons("fa-list-ol", fcolor = usaid_red, save_as = "./Graphics/fa-list-ol.png")
+  fa_icons("fa-repeat", fcolor = usaid_red, save_as = "./Graphics/fa-repeat.png")
+  fa_icons("fa-step-forward", fcolor = usaid_red, save_as = "./Graphics/fa-step-forward.png")
+  fa_icons("fa-wrench", fcolor = usaid_red, save_as = "./Graphics/fa-wrench.png")
+
   ## Params for VIZ ----
 
   curr_fy_dqa_days1 <- curr_fy_days %>%
@@ -173,7 +185,7 @@
 
   viz_calendar2
 
-  viz_calendar3 <- calendR(year = fy_years[2],
+  viz_calendar3 <- calendR(#year = fy_years[2],
                            start_date = ymd(paste0(fy_years[1], str_pad(fy_starts, 2, "left", "0"), "01")),
                            end_date = ceiling_date(ymd(paste0(fy_years[2], str_pad(fy_ends, 2, "left", "0"), "02")), "month") -1,
                            title = "",
@@ -185,12 +197,15 @@
                            start = "S",
                            special.days = curr_fy_dqa_days2,
                            special.col = spec_colors3,
+                           font.family = "Sans Source Pro",
                            col = grey20k,
                            lwd = 0.2,
                            text.size = 15,
-                           months.size = 15,
+                           months.size = 20,
+                           months.col = usaid_black,
                            weeknames.size = 8,
-                           day.size = 6)
+                           day.size = 6) +
+    theme(plot.margin = margin(1, 1, 1, 1))
 
   viz_calendar3
 
@@ -277,13 +292,16 @@
                shape = 21, size = 4) +
     geom_text(data = filter(df_rep_calender1, entry == "open"),
               aes(y = 2.2, label = str_to_sentence(type)),
-              size = 6, hjust = 0, color = trolley_grey) +
+              size = 12, hjust = 0, color = usaid_darkgrey) +
     geom_text(data = filter(df_rep_calender1, entry == "open"),
               aes(y = 0, label = entry_open),
-              size = 6, hjust = 0, color = trolley_grey) +
-    geom_text(data = filter(df_rep_calender1, entry == "close"),
+              size = 7, hjust = 0, color = usaid_darkgrey) +
+    geom_text(data = filter(df_rep_calender1, type == "initial", entry == "close"),
               aes(y = .0, label = entry_close),
-              size = 6, hjust = 1, color = trolley_grey) +
+              size = 8, hjust = 1, color = usaid_darkgrey) +
+    geom_text(data = filter(df_rep_calender1, type == "clean", entry == "close"),
+              aes(y = .0, label = entry_close),
+              size = 8, hjust = 0, color = usaid_darkgrey) +
     # DQA Timeline
     geom_segment(data = df_rep_calender1_dqa2,
                  aes(x = dates, xend = entry_close, y = 4, yend = 4),
@@ -302,11 +320,12 @@
     geom_text(data = filter(df_rep_calender1_dqa1, entry == "open"),
               aes(x = dates, y = 6),
               label = "Accept, Review & Document findings",
-              size = 10, hjust = 0, color = trolley_grey) +
+              size = 12, hjust = 0, color = usaid_darkgrey) +
     scale_fill_identity() +
     scale_color_identity() +
     scale_y_discrete() +
     scale_x_date(position = "top") +
+    coord_cartesian(clip = "off") +
     facet_wrap(~period, ncol = 1, scales = "free", strip.position = "top") +
     labs(x = "", y = "",
          #title = "DATIM - MER Data Entry and Review Check Points",
@@ -316,9 +335,10 @@
     theme(axis.text.x = element_blank(),
           plot.title = element_markdown(size = 30, color = usaid_black),
           plot.subtitle = element_text(size = 25, color = usaid_black),
+          #plot.margin = c(10),
+          plot.margin = margin(1, 25, 1, 1),
           strip.placement = "outside",
-          strip.text = element_text(size = 30, color = trolley_grey, hjust = .03, face = "bold"))
-
+          strip.text = element_text(size = 30, color = usaid_black, hjust = .03, face = "bold"))
 
   viz_check_points
 
@@ -377,7 +397,7 @@
     ggplot(aes(x=step, y = 1)) +
     geom_segment(aes(xend = to, yend = 1),
                  size = 2, linetype = "solid", color = trolley_grey_light) +
-    geom_point(shape = 21, size = 20, fill = scooter_light, color = trolley_grey_light, stroke = 2) +
+    geom_point(shape = 21, size = 40, fill = scooter_light, color = "white", stroke = 2) +
     geom_rect(aes(xmin = 1.5, xmax = 4.5, ymin = .5, ymax = 1.5),
               fill = NA, color = usaid_red, size = 1, linetype = "dashed") +
     geom_text(aes(label = step),
@@ -392,8 +412,8 @@
               size = 60/.pt, color = trolley_grey) +
     geom_richtext(aes(y = 1, label = str_replace(desc, "^(\\S+) (\\S+) ", "\\1 \\2\n")),
               family='Source Sans Pro SemiBold',
-              size = 18/.pt, vjust = 2, fontface = "bold",
-              color = trolley_grey, label.color = NA) +
+              size = 25/.pt, vjust = 2, fontface = "bold",
+              color = usaid_darkgrey, label.color = NA) +
     geom_text(aes(x = 3, y = 1.5),
               label = "USAID's RESPONSABILY",
               family='Source Sans Pro SemiBold',
@@ -401,6 +421,7 @@
               vjust = -.5, color = usaid_red) +
     labs(x = "", y = "") +
     scale_y_continuous(limits = c(0 , 2)) +
+    coord_cartesian(clip = "off") +
     si_style_nolines() +
     theme(axis.text.x = element_blank(),
           axis.text.y = element_blank())
